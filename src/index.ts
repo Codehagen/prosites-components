@@ -16,3 +16,9 @@ export { Testimonials, type TestimonialsProps, type Testimonial } from "./testim
 export { ContactPage, type ContactPageProps } from "./contact-page";
 export { AboutPage, type AboutPageProps, type TeamMember } from "./about-page";
 export { ServicesPage, type ServicesPageProps, type ServiceItem } from "./services-page";
+
+// Additional pages
+export { FAQPage, type FAQPageProps, type FAQItem } from "./faq-page";
+export { PrivacyPage, type PrivacyPageProps, type PrivacySection } from "./privacy-page";
+export { PricesPage, type PricesPageProps, type PricePlan, type PriceFeature } from "./prices-page";
+export { BlogPage, type BlogPageProps, type BlogPost, type BlogPostPageProps } from "./blog-page";
