@@ -10,18 +10,29 @@
     "./about": "./src/components/landing/about.tsx",
     "./contact": "./src/components/landing/contact.tsx",
     "./footer": "./src/components/landing/footer.tsx",
-    "./header": "./src/components/landing/header.tsx"
+    "./header": "./src/components/landing/header.tsx",
+    "./logos": "./src/components/landing/logos.tsx",
+    "./cta": "./src/components/landing/cta.tsx",
+    "./stats": "./src/components/landing/stats.tsx",
+    "./features": "./src/components/landing/features.tsx",
+    "./process": "./src/components/landing/process.tsx",
+    "./testimonials": "./src/components/landing/testimonials.tsx",
+    "./ui/*": "./src/components/ui/*.tsx"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "lucide-react": "*",
     "clsx": "*",
-    "tailwind-merge": "*"
+    "tailwind-merge": "*",
+    "class-variance-authority": "*",
+    "@radix-ui/react-slot": "*"
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "class-variance-authority": "^0.7.1",
+    "@radix-ui/react-slot": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
