@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -12,7 +13,7 @@ export interface NavLink {
 export interface HeaderProps {
   /** Company name */
   companyName?: string;
-  /** Logo SVG or image URL */
+  /** Logo - can be text or image URL */
   logo?: string;
   /** Navigation links */
   navLinks?: NavLink[];
@@ -22,6 +23,10 @@ export interface HeaderProps {
   ctaHref?: string;
   /** Primary brand color */
   primaryColor?: string;
+  /** Make header transparent (for hero page) */
+  transparent?: boolean;
+  /** Current pathname for active state */
+  pathname?: string;
 }
 
 export function Header({
@@ -31,85 +36,113 @@ export function Header({
   ctaText = "Kontakt oss",
   ctaHref = "#contact",
   primaryColor = "#2B7FFF",
+  transparent = false,
+  pathname = "",
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        transparent 
+          ? "bg-transparent" 
+          : "bg-white/95 backdrop-blur-md border-b border-gray-100"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {logo ? (
             typeof logo === "string" && logo.startsWith("http") ? (
               <img src={logo} alt={companyName} className="h-8" />
             ) : (
-              <span className="text-xl font-semibold">{logo}</span>
+              <span className={`text-xl font-semibold ${transparent ? "text-white" : "text-gray-800"}`}>
+                {logo}
+              </span>
             )
           ) : (
             <>
               <div 
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: primaryColor }}
+                className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg"
+                style={{ backgroundColor: primaryColor, color: "#fff" }}
               >
-                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-                  <path d="m3.3 7 8.7 5 8.7-5" />
-                  <path d="M12 22V12" />
-                </svg>
+                {companyName.charAt(0)}
               </div>
-              <span className="text-xl font-semibold text-[#101828]">{companyName}</span>
+              <span className={`text-lg font-semibold ${transparent ? "text-white" : "text-gray-800"}`}>
+                {companyName}
+              </span>
             </>
           )}
         </div>
         
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link, index) => (
-            <a 
+            <Link 
               key={index}
-              href={link.href} 
-              className="text-[#6B7280] hover:text-[#101828] transition-colors"
+              href={link.href}
+              className={`text-sm font-medium uppercase tracking-wider transition-colors ${
+                transparent 
+                  ? "text-white/80 hover:text-white" 
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           {ctaText && (
-            <Button 
-              className="text-white"
-              style={{ backgroundColor: primaryColor }}
-              asChild
-            >
-              <a href={ctaHref}>{ctaText}</a>
-            </Button>
+            <Link href={ctaHref}>
+              <Button 
+                size="sm"
+                className="text-white"
+                style={{ backgroundColor: primaryColor }}
+              >
+                {ctaText}
+              </Button>
+            </Link>
           )}
         </nav>
 
         <button 
-          className="md:hidden p-2"
+          className="lg:hidden p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? (
+            <X className={`w-6 h-6 ${transparent ? "text-white" : "text-gray-800"}`} />
+          ) : (
+            <Menu className={`w-6 h-6 ${transparent ? "text-white" : "text-gray-800"}`} />
+          )}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-4 mobile-nav-enter">
-          {navLinks.map((link, index) => (
-            <a 
-              key={index}
-              href={link.href} 
-              className="text-[#6B7280]"
-            >
-              {link.label}
-            </a>
-          ))}
-          {ctaText && (
-            <Button 
-              className="w-full text-white"
-              style={{ backgroundColor: primaryColor }}
-            >
-              <a href={ctaHref}>{ctaText}</a>
-            </Button>
-          )}
+        <div className="lg:hidden bg-black/95 backdrop-blur-md absolute left-0 right-0 top-full mobile-nav-enter">
+          <nav className="flex flex-col px-6 py-4 gap-1">
+            {navLinks.map((link, index) => (
+              <Link 
+                key={index}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-medium uppercase tracking-wider text-white/80 hover:text-white py-3 transition-colors border-b border-white/10"
+              >
+                {link.label}
+              </Link>
+            ))}
+            {ctaText && (
+              <Link 
+                href={ctaHref}
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-4"
+              >
+                <Button 
+                  className="w-full text-white"
+                  style={{ backgroundColor: primaryColor }}
+                >
+                  {ctaText}
+                </Button>
+              </Link>
+            )}
+          </nav>
         </div>
       )}
     </header>
