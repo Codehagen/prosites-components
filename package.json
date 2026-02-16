@@ -1,0 +1,31 @@
+{
+  "name": "prosites-components",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./hero": "./src/components/landing/hero.tsx",
+    "./services": "./src/components/landing/services.tsx",
+    "./about": "./src/components/landing/about.tsx",
+    "./contact": "./src/components/landing/contact.tsx",
+    "./footer": "./src/components/landing/footer.tsx",
+    "./header": "./src/components/landing/header.tsx"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
+    "lucide-react": "*",
+    "clsx": "*",
+    "tailwind-merge": "*"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18 || ^19",
+    "typescript": "^5"
+  }
+}
