@@ -10,3 +10,8 @@ export { Stats, type StatsProps, type Stat } from "./stats";
 export { Features, type FeaturesProps, type Feature } from "./features";
 export { Process, type ProcessProps, type ProcessStep } from "./process";
 export { Testimonials, type TestimonialsProps, type Testimonial } from "./testimonials";
+
+// Page templates
+export { ContactPage, type ContactPageProps } from "./contact-page";
+export { AboutPage, type AboutPageProps, type TeamMember } from "./about-page";
+export { ServicesPage, type ServicesPageProps, type ServiceItem } from "./services-page";
