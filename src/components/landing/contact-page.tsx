@@ -8,6 +8,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export interface ContactPageProps {
+  /** Page title */
+  title?: string;
+  /** Page subtitle */
+  subtitle?: string;
   /** Company name */
   companyName?: string;
   /** Contact information */
@@ -24,6 +28,8 @@ export interface ContactPageProps {
 }
 
 export function ContactPage({
+  title = "Kontakt oss",
+  subtitle = "",
   companyName = "Bedrift",
   contact = {},
   openingHours = "08:00 - 16:00 mandag til fredag",

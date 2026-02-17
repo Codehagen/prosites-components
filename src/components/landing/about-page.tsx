@@ -9,6 +9,10 @@ export interface TeamMember {
 }
 
 export interface AboutPageProps {
+  /** Page title */
+  title?: string;
+  /** Page subtitle */
+  subtitle?: string;
   /** Company name */
   companyName?: string;
   /** About content - can contain HTML */
@@ -28,6 +32,8 @@ export interface AboutPageProps {
 }
 
 export function AboutPage({
+  title = "Om oss",
+  subtitle = "",
   companyName = "Bedrift",
   content = "",
   mission = "",
@@ -46,9 +52,12 @@ export function AboutPage({
           style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('${heroImage}')` }}
         />
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white py-24">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Om {companyName}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">{title}</h1>
+          {subtitle && (
+            <p className="text-xl text-white/90 max-w-2xl mx-auto mb-6">{subtitle}</p>
+          )}
           {content && (
-            <p className="text-xl text-white/90 max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
+            <p className="text-lg text-white/80 max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
           )}
         </div>
       </section>
